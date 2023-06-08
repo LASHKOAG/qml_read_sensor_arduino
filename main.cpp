@@ -1,6 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
+#include "readsensormodel.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -9,6 +11,8 @@ int main(int argc, char *argv[])
 #endif
 
     QGuiApplication app(argc, argv);
+
+    qmlRegisterType<ReadSensorModel>("ReadSensor", 1, 0, "ReadSensorModel");
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));

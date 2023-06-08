@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>Read_sensor.qml</file>
     </qresource>
 </RCC>

@@ -6,4 +6,8 @@ Window {
     height: 480
     visible: true
     title: qsTr("Read Sensor Arduino")
+
+    Read_sensor {
+        anchors.centerIn: parent
+    }
 }
