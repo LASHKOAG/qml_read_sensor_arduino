@@ -140,7 +140,8 @@ ColumnLayout {
             Layout.fillWidth: true
             onClicked: {
                 readSensor.appendItem()
-                lv_read_sensor.focus = true
+//                lv_read_sensor.focus = true
+                lv_read_sensor.currentIndex = rs_model.get_size() - 1
             }
         }
         Button {

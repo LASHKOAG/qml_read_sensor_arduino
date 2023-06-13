@@ -65,5 +65,7 @@ void ReadSensorCpp::removeCompletedItems(int index)
 //            }else {
 //                ++i;
 //            }
-//        }
+    //        }
 }
+
+

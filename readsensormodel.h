@@ -36,6 +36,8 @@ public:
     ReadSensorCpp* sensorList() const;
     void setSensorList(ReadSensorCpp *newSensorList);
 
+    Q_INVOKABLE int get_size();
+
 signals:
     void sensorListChanged();
 

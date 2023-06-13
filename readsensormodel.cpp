@@ -130,3 +130,8 @@ void ReadSensorModel::setSensorList(ReadSensorCpp *newSensorList)
 
     endResetModel();
 }
+
+int ReadSensorModel::get_size()
+{
+    return mSensorList->items().size();
+}
