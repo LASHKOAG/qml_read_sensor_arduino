@@ -5,54 +5,149 @@ import QtQuick.Layouts 1.3
 
 import ReadSensor 1.0
 
-Frame {
-    Layout.fillWidth: true
-    ListView {
-        implicitWidth: 400
-        implicitHeight: 400
-        clip: true
-        spacing: 10
-        anchors.fill: parent
-        model: ReadSensorModel{}
-        delegate: RowLayout {
-            width: parent.width
-            Rectangle {
-                id: r_sensor_address
-                width: parent.width/4
-                height: 30
-                border.color: "green"
-                border.width: 2
-                Text {
-                    id: txt_sensor_address
-                    //text: qsTr("sensor_address")
-                    text: model.sensor_address
-                }
+ColumnLayout {
+    Frame {
+        Layout.fillWidth: true
+
+        ListView {
+            id: lv_read_sensor
+            implicitWidth: 400
+            implicitHeight: 300
+            clip: true
+            spacing: 10
+            anchors.fill: parent
+            model: ReadSensorModel{
+                id: rs_model
+                sensorList: readSensor
             }
-            Rectangle {
-                id: r_sensor_name
-                width: parent.width/4
-                height: 30
-                border.color: "green"
-                border.width: 2
-                Text {
-                    id: txt_sensor_name
-                    //text: qsTr("sensor_name")
-                    text: model.sensor_name
+            delegate: Component {
+                Item {
+                    id: line_data
+                    width: parent.width
+                    height: 30
+                    //color: lv_read_sensor.currentIndex === index ? "lightgrey" : "#00000000"
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked:{
+                            lv_read_sensor.currentIndex = index
+                            //console.log("lv_read_sensor.currentIndex: " + lv_read_sensor.currentIndex)
+                        }
+                    }
+
+                    TextField {
+                        id: txt_sensor_address
+                        implicitWidth: parent.width/6
+                        height: 30
+                        anchors.left: parent.left
+                        anchors.leftMargin: 10
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+
+                        onPressed: {
+                            //console.log("onPressed: + " + index)
+                            lv_read_sensor.currentIndex = index
+                            //console.log("lv_read_sensor.currentIndex: " + lv_read_sensor.currentIndex)
+                        }
+
+                        placeholderText: "0x...."
+                        font.pixelSize: 15
+                        background: Rectangle {
+                            border.color: "green"
+                            border.width: txt_sensor_address.activeFocus ? 3 : 2
+                            //                    border.color: txt_sensor_address.enabled ? "green" : "transparent"
+
+                            //                        //                                Image {
+                            //                        //                                    width: 10
+                            //                        //                                    height: 10
+                            //                        //                                    source: "qrc:///inner.png"
+                            //                        //                                    anchors.verticalCenter: parent.verticalCenter
+                            //                        //                                    anchors.left: parent.left
+                            //                        //                                    anchors.leftMargin: 10
+                            //                        //                                }
+                        }
+
+                        text: "0x" + model.sensor_address.toString(16)
+                    }
+
+                    TextField {
+                        id: txt_sensor_name
+                        implicitWidth: parent.width/3
+                        height: 30
+                        anchors.centerIn: parent
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+
+                        onPressed: {
+                            //console.log("onPressed: + " + index)
+                            lv_read_sensor.currentIndex = index
+                            //console.log("lv_read_sensor.currentIndex: " + lv_read_sensor.currentIndex)
+                        }
+
+                        placeholderText: "0x...."
+                        font.pixelSize: 15
+                        background: Rectangle {
+                            border.color: "green"
+                            border.width: txt_sensor_name.activeFocus ? 3 : 2
+                            //                    border.color: txt_sensor_address.enabled ? "green" : "transparent"
+
+                            //                        //                                Image {
+                            //                        //                                    width: 10
+                            //                        //                                    height: 10
+                            //                        //                                    source: "qrc:///inner.png"
+                            //                        //                                    anchors.verticalCenter: parent.verticalCenter
+                            //                        //                                    anchors.left: parent.left
+                            //                        //                                    anchors.leftMargin: 10
+                            //                        //                                }
+                        }
+
+                        text: model.sensor_name
+                    }
+                    Rectangle {
+                        id: r_sensor_data
+                        implicitWidth: parent.width/6
+                        height: 30
+                        border.color: "green"
+                        border.width: 2
+                        anchors.right: parent.right
+                        anchors.rightMargin: 10
+                        Text {
+                            id: txt_sensor_data
+                            anchors.centerIn: parent
+                            //                            horizontalAlignment: Text.AlignHCenter
+                            //                            verticalAlignment: Text.AlignVCenter
+                            //text: qsTr("sensor_data")
+                            text: model.sensor_data
+                        }
+                    }
+
                 }
+
             }
-            Rectangle {
-                id: r_sensor_data
-                width: parent.width/5
-                height: 30
-                border.color: "green"
-                border.width: 2
-                Text {
-                    id: txt_sensor_data
-                    //text: qsTr("sensor_data")
-                    text: model.sensor_data
-                }
+            highlight: Rectangle {
+                color: "lightgray"
+            }
+            focus: true
+            onCurrentItemChanged:{
+                //console.log(rs_model.get(lv_read_sensor.currentIndex).name + ' selected')
+                //console.log("onCurrentItemChanged:")
             }
         }
-
+    }
+    RowLayout {
+        Button {
+            id: btn_add
+            text: qsTr("Add new item")
+            Layout.fillWidth: true
+            onClicked: {
+                readSensor.appendItem()
+                lv_read_sensor.focus = true
+            }
+        }
+        Button {
+            id: btn_remove
+            text: qsTr("Remove sensor")
+            Layout.fillWidth: true
+            onClicked: readSensor.removeCompletedItems(lv_read_sensor.currentIndex)
+        }
     }
 }
