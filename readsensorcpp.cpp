@@ -2,6 +2,8 @@
 
 ReadSensorCpp::ReadSensorCpp(QObject *parent) : QObject(parent)
 {
+    serial = new SerialPort();
+
     mItems.append({0x44, QStringLiteral("Fotoresistor"), 177});
     mItems.append({0x47, QStringLiteral("Colorsensor"), 255});
 }

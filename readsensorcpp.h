@@ -6,6 +6,8 @@
 
 #include <QDebug>
 
+#include "serialport.h"
+
 // этот класс должен уметь:
 // изменять
 // добавлять элемент
@@ -47,6 +49,7 @@ public slots:
 
 private:
     QVector<ReadSensorItem> mItems;
+    SerialPort* serial;
 
 };
 
