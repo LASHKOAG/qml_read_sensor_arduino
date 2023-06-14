@@ -151,4 +151,21 @@ ColumnLayout {
             onClicked: readSensor.removeCompletedItems(lv_read_sensor.currentIndex)
         }
     }
+
+    RowLayout {
+        Button {
+            id: btn_on
+            text: qsTr("On")
+            Layout.fillWidth: true
+            onClicked: {
+                readSensor.turn_on_led()
+            }
+        }
+        Button {
+            id: btn_off
+            text: qsTr("Off")
+            Layout.fillWidth: true
+            onClicked: readSensor.turn_off_led()
+        }
+    }
 }

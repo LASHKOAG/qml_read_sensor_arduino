@@ -8,6 +8,13 @@ ReadSensorCpp::ReadSensorCpp(QObject *parent) : QObject(parent)
     mItems.append({0x47, QStringLiteral("Colorsensor"), 255});
 }
 
+ReadSensorCpp::~ReadSensorCpp()
+{
+    if(serial != nullptr){
+        delete serial;
+    }
+}
+
 QVector<ReadSensorItem> ReadSensorCpp::items() const
 {
     return mItems;
@@ -68,6 +75,16 @@ void ReadSensorCpp::removeCompletedItems(int index)
 //                ++i;
 //            }
     //        }
+}
+
+void ReadSensorCpp::turn_on_led()
+{
+    serial->on_pushButton_On_clicked();
+}
+
+void ReadSensorCpp::turn_off_led()
+{
+    serial->on_pushButton_Off_clicked();
 }
 
 

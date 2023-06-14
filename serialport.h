@@ -15,12 +15,15 @@ class SerialPort : public QObject
 public:
     explicit SerialPort(QObject *parent = nullptr);
     ~SerialPort();
+public slots:
+    void on_pushButton_On_clicked();
+    void on_pushButton_Off_clicked();
 
 private slots:
     void on_pushButton_send_clicked();
     void read_data();
-    void on_pushButton_On_clicked();
-    void on_pushButton_Off_clicked();
+//    void on_pushButton_On_clicked();
+//    void on_pushButton_Off_clicked();
 
     void handleError(QSerialPort::SerialPortError error);
 

@@ -24,6 +24,7 @@ class ReadSensorCpp : public QObject
     Q_OBJECT
 public:
     explicit ReadSensorCpp(QObject *parent = nullptr);
+    ~ReadSensorCpp();
 
     //getter
     QVector<ReadSensorItem> items() const;
@@ -46,6 +47,9 @@ public slots:
     void appendItem();
 
     void removeCompletedItems(int index);
+
+    void turn_on_led();
+    void turn_off_led();
 
 private:
     QVector<ReadSensorItem> mItems;
