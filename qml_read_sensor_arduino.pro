@@ -1,4 +1,4 @@
-QT += quick
+QT += quick serialport
 
 CONFIG += c++11
 
@@ -9,7 +9,8 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         readsensorcpp.cpp \
-        readsensormodel.cpp
+        readsensormodel.cpp \
+        serialport.cpp
 
 RESOURCES += qml.qrc
 
@@ -26,4 +27,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     readsensorcpp.h \
-    readsensormodel.h
+    readsensormodel.h \
+    serialport.h

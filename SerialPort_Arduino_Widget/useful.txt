@@ -1,0 +1,33 @@
+
+Scanning the serial port periodically to see if the device is connected in QT, QSerialPort
+https://stackoverflow.com/questions/34465578/scanning-the-serial-port-periodically-to-see-if-the-device-is-connected-in-qt-q
+
+
+
+1.I created the following timer in my constructor to check the serial port frequently. I made a method (scanSerialPorts()) and call it every 1 second.
+
+QTimer *timer = new QTimer(this);
+connect(timer,SIGNAL(timeout()),this,SLOT(scanSerialPorts()));
+
+timer->start(1000);
+This is my scanSerialPorts() implementation:
+
+foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
+    currentPortName = info.systemLocation();
+}
+
+if (currentPortName == "My Desired PortName" ) {
+    updateSettings();
+
+    if ( !serial->isOpen()){
+        qDebug() << "Serial Not Open";
+        openSerialPort();
+    } 
+} else
+{
+    serial->close();
+}
+updateSettings();  // Fills up the serial port parameters.
+
+3.openSerialPort();  //Opens up the serial port.
+4.I used QT examples to write this. Please let me know what you think and how I can make it better.
